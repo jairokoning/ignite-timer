@@ -1,6 +1,10 @@
+import { useContext } from 'react'
 import { HistoryContainer, HistoryList, Status } from './styles'
+import { CyclesContext } from '../../contexts/CyclesContext'
 
 export function History() {
+  const { cycles } = useContext(CyclesContext)
+
   return (
     <HistoryContainer>
       <h1>My history</h1>
@@ -16,38 +20,28 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>New task 1</td>
-              <td>25 minutes</td>
-              <td>2 months ago</td>
-              <td>
-                <Status statusColor="green">Done</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>New task 1</td>
-              <td>25 minutes</td>
-              <td>1 months ago</td>
-              <td>
-                <Status statusColor="green">Done</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>New task 1</td>
-              <td>25 minutes</td>
-              <td>2 weeks ago</td>
-              <td>
-                <Status statusColor="red">Interrupted</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>New task 1</td>
-              <td>25 minutes</td>
-              <td>3 hours ago</td>
-              <td>
-                <Status statusColor="yellow">In progress</Status>
-              </td>
-            </tr>
+            {cycles.map((cycle) => {
+              return (
+                <tr key={cycle.id}>
+                  <td>{cycle.task}</td>
+                  <td>{cycle.minutesAmount} minutes</td>
+                  <td>{cycle.startDate.toISOString()}</td>
+                  <td>
+                    {cycle.finishedDate && (
+                      <Status statusColor="green">Done</Status>
+                    )}
+
+                    {cycle.interruptedDate && (
+                      <Status statusColor="red">Interrupted</Status>
+                    )}
+
+                    {!cycle.finishedDate && !cycle.interruptedDate && (
+                      <Status statusColor="yellow">In progress</Status>
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </HistoryList>
