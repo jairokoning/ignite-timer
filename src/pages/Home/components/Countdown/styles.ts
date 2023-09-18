@@ -23,26 +23,3 @@ export const Separator = styled.div`
   display: flex;
   justify-content: center;
 `
-
-export const BaseCountdownButton = styled.button`
-  width: 100%;
-  border: 0;
-  padding: 1rem;
-  border-radius: 8px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: ${(props) => props.theme['gray-100']};
-
-  gap: 0.5rem;
-  font-weight: bold;
-
-  cursor: pointer;
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-`
